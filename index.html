@@ -1,0 +1,613 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grace's Birthday Cornwall Countdown</title>
+  <style>
+    :root {
+      --panel: rgba(12, 21, 39, 0.78);
+      --text: #eef5ff;
+      --muted: #b6c5d8;
+      --accent: #f7b7cf;
+      --accent-2: #88d4ff;
+      --gold: #f3d68d;
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 24px 60px rgba(0,0,0,0.34);
+      --radius: 28px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(33,72,130,0.55), transparent 32%),
+        radial-gradient(circle at 20% 20%, rgba(247,183,207,0.12), transparent 22%),
+        linear-gradient(180deg, #091322 0%, #0e1f37 44%, #08111f 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(2px 2px at 12% 24%, rgba(255,255,255,0.8), transparent 60%),
+        radial-gradient(2px 2px at 30% 10%, rgba(255,255,255,0.7), transparent 60%),
+        radial-gradient(1.6px 1.6px at 70% 18%, rgba(255,255,255,0.75), transparent 60%),
+        radial-gradient(1.8px 1.8px at 82% 28%, rgba(255,255,255,0.8), transparent 60%),
+        radial-gradient(2px 2px at 56% 34%, rgba(255,255,255,0.75), transparent 60%),
+        radial-gradient(1.8px 1.8px at 22% 65%, rgba(255,255,255,0.75), transparent 60%),
+        radial-gradient(1.6px 1.6px at 88% 72%, rgba(255,255,255,0.8), transparent 60%),
+        radial-gradient(2px 2px at 64% 82%, rgba(255,255,255,0.7), transparent 60%);
+      opacity: 0.9;
+    }
+    .wrap {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 28px 0 60px;
+    }
+    .hero {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 34px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
+        rgba(5, 11, 23, 0.75);
+      backdrop-filter: blur(14px);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 0;
+    }
+    .hero-copy { padding: 56px 56px 42px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      padding: 10px 16px;
+      color: var(--gold);
+      background: rgba(255,255,255,0.05);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      line-height: 0.96;
+      margin: 18px 0 16px;
+      letter-spacing: -0.03em;
+    }
+    .sub {
+      font-size: 1.08rem;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 60ch;
+      margin-bottom: 28px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 34px;
+    }
+    .btn {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      padding: 14px 20px;
+      border-radius: 16px;
+      font-weight: 700;
+      color: #101828;
+      background: linear-gradient(135deg, var(--accent), #ffdce8);
+      box-shadow: 0 10px 30px rgba(247,183,207,0.28);
+    }
+    .ghost {
+      color: var(--text);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: none;
+    }
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .time-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 22px;
+      padding: 22px 16px;
+      text-align: center;
+    }
+    .time-card .num {
+      display: block;
+      font-size: clamp(2.1rem, 4vw, 3.2rem);
+      line-height: 1;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .time-card .label {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.76rem;
+    }
+    .hero-side {
+      position: relative;
+      min-height: 640px;
+      background:
+        radial-gradient(circle at 18% 26%, rgba(136,212,255,0.14), transparent 32%),
+        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+      border-left: 1px solid rgba(255,255,255,0.09);
+    }
+    .side-stack {
+      position: absolute;
+      inset: 26px;
+      display: grid;
+      grid-template-rows: 1.08fr 0.92fr;
+      gap: 18px;
+    }
+    .photo-panel {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      min-height: 0;
+    }
+    .photo-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-badge {
+      position: absolute;
+      left: 16px;
+      bottom: 16px;
+      padding: 12px 16px;
+      border-radius: 16px;
+      background: rgba(7, 14, 28, 0.72);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(10px);
+    }
+    .photo-badge strong {
+      display: block;
+      font-size: 0.98rem;
+      margin-bottom: 4px;
+    }
+    .photo-badge span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+    .section {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+    .card h2, .card h3 { margin: 0; }
+    .map-card { grid-column: span 5; }
+    .dest-card { grid-column: span 7; }
+    .story-card { grid-column: span 7; }
+    .details-card { grid-column: span 5; }
+    .media {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .card-body { padding: 24px; }
+    .kicker {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent-2);
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+    .card-title {
+      font-size: 1.6rem;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .card-copy {
+      color: var(--muted);
+      line-height: 1.75;
+      margin: 0;
+    }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .chip {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .couple {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 0;
+      min-height: 100%;
+    }
+    .couple .image-wrap {
+      min-height: 100%;
+      position: relative;
+    }
+    .couple .image-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 48%, rgba(6,10,18,0.35) 100%);
+      pointer-events: none;
+    }
+    .couple .image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .couple-copy {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .meta {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .meta-item {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .meta-item strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+    .meta-item span { color: var(--muted); }
+    .footer-note {
+      margin-top: 18px;
+      text-align: center;
+      color: rgba(214, 225, 239, 0.72);
+      font-size: 0.92rem;
+    }
+    dialog {
+      width: min(520px, calc(100vw - 24px));
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 26px;
+      background: #0d1728;
+      color: var(--text);
+      padding: 0;
+      box-shadow: var(--shadow);
+    }
+    dialog::backdrop { background: rgba(2,6,14,0.72); }
+    .modal { padding: 26px; }
+    .modal h3 {
+      font-size: 1.45rem;
+      margin-bottom: 10px;
+    }
+    .modal p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .field {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .field label {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .field input {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      border-radius: 14px;
+      padding: 14px 16px;
+      font: inherit;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    @media (max-width: 980px) {
+      .hero-grid, .couple { grid-template-columns: 1fr; }
+      .hero-side { min-height: 460px; border-left: 0; border-top: 1px solid rgba(255,255,255,0.09); }
+      .map-card, .dest-card, .story-card, .details-card { grid-column: span 12; }
+      .countdown { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .wrap { width: min(100vw - 18px, 1180px); padding-top: 14px; }
+      .hero-copy { padding: 28px 20px 24px; }
+      .hero-side { min-height: 360px; }
+      .side-stack { inset: 16px; }
+      .card-body, .couple-copy { padding: 20px; }
+      .countdown { gap: 12px; }
+      .time-card { padding: 18px 12px; }
+      h1 { font-size: 2.35rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Grace's 33rd birthday · Cornwall weekend away</div>
+          <h1>Countdown to champagne in the hot tub under the stars.</h1>
+          <p class="sub">
+            A one-page romantic countdown for your Bristol-to-Cornwall escape. Set the getaway start date once and the page will keep counting down in days, hours and minutes.
+          </p>
+          <div class="hero-actions">
+            <button class="btn" id="setDateBtn">Set getaway date</button>
+            <button class="btn ghost" id="resetDateBtn">Reset</button>
+            <span id="dateSummary" style="color: var(--muted); font-weight: 600;"></span>
+          </div>
+          <div class="countdown" aria-live="polite">
+            <div class="time-card"><span class="num" id="days">--</span><span class="label">Days</span></div>
+            <div class="time-card"><span class="num" id="hours">--</span><span class="label">Hours</span></div>
+            <div class="time-card"><span class="num" id="minutes">--</span><span class="label">Minutes</span></div>
+            <div class="time-card"><span class="num" id="status">❤️</span><span class="label">Mood</span></div>
+          </div>
+        </div>
+        <div class="hero-side">
+          <div class="side-stack">
+            <div class="photo-panel">
+              <img src="D75A89EE-F0B3-44F4-BDFF-F0B0AE080D9A_cartoon.png" alt="Cartoon-style image of the couple" />
+              <div class="photo-badge">
+                <strong>You two, cartoon style</strong>
+                <span>Made from your photo for the page artwork.</span>
+              </div>
+            </div>
+            <div class="photo-panel">
+              <img src="destination.svg" alt="Illustrated Cornwall destination with tiny house and hot tub" />
+              <div class="photo-badge">
+                <strong>The Cornwall vibe</strong>
+                <span>Romantic tiny-house energy, valley views, hot tub, stars.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <article class="card map-card">
+        <div class="media">
+          <img src="route-map.svg" alt="Stylised route map from Bristol to Lanreath, Cornwall" />
+        </div>
+        <div class="card-body">
+          <span class="kicker">Road trip</span>
+          <h2 class="card-title">Bristol → Lanreath, Cornwall</h2>
+          <p class="card-copy">
+            A clean route panel for the journey west, ready to sit alongside the countdown and keep the whole page feeling like a proper trip announcement.
+          </p>
+        </div>
+      </article>
+
+      <article class="card dest-card">
+        <div class="media">
+          <img src="destination.svg" alt="Destination artwork inspired by the Cornwall stay" />
+        </div>
+        <div class="card-body">
+          <span class="kicker">Destination</span>
+          <h2 class="card-title">A Cornwall weekend with hot-tub birthday energy</h2>
+          <p class="card-copy">
+            Romantic, cosy and built around the atmosphere you described: Grace's 33rd, champagne, a private hot tub, and a star-filled night sky.
+          </p>
+          <div class="chips">
+            <span class="chip">Grace turns 33</span>
+            <span class="chip">Champagne plans</span>
+            <span class="chip">Hot tub under the stars</span>
+            <span class="chip">Cornwall escape</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card story-card">
+        <div class="couple">
+          <div class="image-wrap">
+            <img src="D75A89EE-F0B3-44F4-BDFF-F0B0AE080D9A_cartoon.png" alt="Cartoon-style portrait of the couple together" />
+          </div>
+          <div class="couple-copy">
+            <span class="kicker">The two of you</span>
+            <h3 class="card-title">Professional look, personal feel</h3>
+            <p class="card-copy">
+              This page keeps the styling polished and modern but still playful, with your own photo turned into a cartoon-style hero image so it feels custom rather than generic.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <aside class="card details-card">
+        <div class="card-body">
+          <span class="kicker">What's included</span>
+          <h3 class="card-title">Single-page setup</h3>
+          <div class="meta">
+            <div class="meta-item">
+              <strong>Live countdown</strong>
+              <span>Days, hours and minutes update every minute.</span>
+            </div>
+            <div class="meta-item">
+              <strong>Date picker built in</strong>
+              <span>No need to edit code just to set the getaway weekend.</span>
+            </div>
+            <div class="meta-item">
+              <strong>Route + destination visuals</strong>
+              <span>Includes a stylised Bristol-to-Lanreath route image and Cornwall destination artwork.</span>
+            </div>
+            <div class="meta-item">
+              <strong>Birthday theme</strong>
+              <span>Designed around Grace's 33rd and the champagne hot-tub moment.</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <p class="footer-note">Tip: open the page, click <strong>Set getaway date</strong>, and choose the Friday arrival date and time for your trip.</p>
+  </div>
+
+  <dialog id="dateDialog">
+    <form method="dialog" class="modal" id="dateForm">
+      <h3>Set the weekend-away start date</h3>
+      <p>Choose the date and time your Cornwall weekend begins. The page saves it in your browser for next time.</p>
+      <div class="field">
+        <label for="tripDate">Getaway date & time</label>
+        <input id="tripDate" name="tripDate" type="datetime-local" required />
+      </div>
+      <div class="modal-actions">
+        <button class="btn ghost" value="cancel" type="button" id="cancelBtn">Cancel</button>
+        <button class="btn" value="default" type="submit">Save date</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+    const storageKey = 'graceCornwallCountdownDate';
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const statusEl = document.getElementById('status');
+    const dateSummaryEl = document.getElementById('dateSummary');
+    const setDateBtn = document.getElementById('setDateBtn');
+    const resetDateBtn = document.getElementById('resetDateBtn');
+    const dateDialog = document.getElementById('dateDialog');
+    const tripDateInput = document.getElementById('tripDate');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const dateForm = document.getElementById('dateForm');
+
+    function pad(value) {
+      return String(value).padStart(2, '0');
+    }
+    function getStoredDate() {
+      return localStorage.getItem(storageKey);
+    }
+    function setStoredDate(value) {
+      localStorage.setItem(storageKey, value);
+    }
+    function clearStoredDate() {
+      localStorage.removeItem(storageKey);
+    }
+    function formatSummary(date) {
+      return new Intl.DateTimeFormat(undefined, {
+        weekday: 'short',
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit'
+      }).format(date);
+    }
+    function updateCountdown() {
+      const stored = getStoredDate();
+      if (!stored) {
+        daysEl.textContent = '--';
+        hoursEl.textContent = '--';
+        minutesEl.textContent = '--';
+        statusEl.textContent = 'Set it';
+        dateSummaryEl.textContent = 'No date chosen yet';
+        return;
+      }
+      const target = new Date(stored);
+      if (Number.isNaN(target.getTime())) {
+        clearStoredDate();
+        updateCountdown();
+        return;
+      }
+      const now = new Date();
+      const diff = target - now;
+      dateSummaryEl.textContent = 'Trip starts ' + formatSummary(target);
+
+      if (diff <= 0) {
+        daysEl.textContent = '00';
+        hoursEl.textContent = '00';
+        minutesEl.textContent = '00';
+        statusEl.textContent = 'Go time';
+        return;
+      }
+
+      const totalMinutes = Math.floor(diff / 60000);
+      const days = Math.floor(totalMinutes / (60 * 24));
+      const hours = Math.floor((totalMinutes % (60 * 24)) / 60);
+      const minutes = totalMinutes % 60;
+      daysEl.textContent = days;
+      hoursEl.textContent = pad(hours);
+      minutesEl.textContent = pad(minutes);
+      statusEl.textContent = days <= 1 ? 'Nearly' : 'Counting';
+    }
+    function openDialog() {
+      const stored = getStoredDate();
+      if (stored) {
+        const saved = new Date(stored);
+        if (!Number.isNaN(saved.getTime())) {
+          const localISO = new Date(saved.getTime() - saved.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+          tripDateInput.value = localISO;
+        }
+      } else {
+        const suggested = new Date();
+        suggested.setDate(suggested.getDate() + 14);
+        suggested.setHours(15, 0, 0, 0);
+        const localISO = new Date(suggested.getTime() - suggested.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+        tripDateInput.value = localISO;
+      }
+      dateDialog.showModal();
+    }
+    setDateBtn.addEventListener('click', openDialog);
+    cancelBtn.addEventListener('click', () => dateDialog.close());
+    resetDateBtn.addEventListener('click', () => {
+      clearStoredDate();
+      updateCountdown();
+    });
+    dateForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!tripDateInput.value) return;
+      const selected = new Date(tripDateInput.value);
+      setStoredDate(selected.toISOString());
+      dateDialog.close();
+      updateCountdown();
+    });
+    updateCountdown();
+    setInterval(updateCountdown, 30000);
+  </script>
+</body>
+</html>

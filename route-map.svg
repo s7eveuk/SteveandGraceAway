@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-label="Stylised route map from Bristol to Lanreath">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#eef7fb"/>
+      <stop offset="1" stop-color="#dceef2"/>
+    </linearGradient>
+    <filter id="soft">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#64748b" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="760" fill="url(#bg)"/>
+  <path d="M88 130 C190 102 325 92 470 114 C548 126 638 122 690 144 C762 176 798 220 848 244 C922 282 1045 336 1114 422 C1140 454 1138 530 1082 580 C1030 628 958 620 922 606 C862 582 818 596 758 610 C634 640 562 630 422 650 C304 666 178 620 126 536 C76 454 54 292 88 130 Z" fill="#bfe1b7"/>
+  <path d="M744 350 C808 384 900 416 1036 462 C1058 470 1080 482 1092 520 C1100 546 1084 574 1050 592 C1002 616 916 602 838 612 C760 620 692 622 634 618 C728 582 776 548 822 512 C870 474 900 432 920 388 Z" fill="#9fd4ef"/>
+  <path d="M112 124 C220 92 354 92 488 116 C560 128 620 128 676 150 C724 168 774 206 812 238 C846 266 886 288 934 306 C1018 338 1082 392 1114 430" fill="none" stroke="#ffffff" stroke-opacity="0.55" stroke-width="10"/>
+  <g opacity="0.72" fill="#ffffff">
+    <rect x="212" y="116" width="96" height="18" rx="9"/><rect x="340" y="138" width="86" height="18" rx="9"/>
+    <rect x="660" y="214" width="86" height="18" rx="9"/><rect x="850" y="298" width="116" height="18" rx="9"/>
+    <rect x="908" y="560" width="90" height="18" rx="9"/>
+  </g>
+  <path d="M286 156 C334 172 376 222 420 282 C470 350 532 430 620 504 C706 576 820 592 972 560" fill="none" stroke="#2563eb" stroke-width="24" stroke-linecap="round"/>
+  <path d="M286 156 C334 172 376 222 420 282 C470 350 532 430 620 504 C706 576 820 592 972 560" fill="none" stroke="#93c5fd" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 28"/>
+  <g filter="url(#soft)">
+    <g transform="translate(248,116)">
+      <path d="M40 0 C62 0 80 18 80 40 C80 70 40 118 40 118 C40 118 0 70 0 40 C0 18 18 0 40 0 Z" fill="#ef4444"/>
+      <circle cx="40" cy="40" r="15" fill="#fff"/>
+    </g>
+    <g transform="translate(930,510)">
+      <path d="M40 0 C62 0 80 18 80 40 C80 70 40 118 40 118 C40 118 0 70 0 40 C0 18 18 0 40 0 Z" fill="#ef4444"/>
+      <circle cx="40" cy="40" r="15" fill="#fff"/>
+    </g>
+  </g>
+  <g font-family="Inter,Arial,sans-serif" fill="#0f172a">
+    <text x="190" y="110" font-size="44" font-weight="700">Bristol</text>
+    <text x="886" y="666" font-size="44" font-weight="700">Lanreath</text>
+    <text x="882" y="708" font-size="28" fill="#334155">Cornwall</text>
+  </g>
+  <g transform="translate(70,600)">
+    <rect width="385" height="84" rx="20" fill="#ffffff" fill-opacity="0.7"/>
+    <text x="26" y="36" font-family="Inter,Arial,sans-serif" font-size="22" fill="#475569" letter-spacing="2">ROMANTIC ROAD TRIP</text>
+    <text x="26" y="64" font-family="Georgia,serif" font-size="30" fill="#0f172a">Bristol → Lanreath</text>
+  </g>
+</svg>
